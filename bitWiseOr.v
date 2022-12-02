@@ -1,0 +1,37 @@
+module bitWiseOr(outor,A,B);
+    input[31:0] A,B;
+    output[31:0] outor;
+
+    or one1(outor[0],A[0],B[0]);
+    or one2(outor[1],A[1],B[1]);
+    or one3(outor[2],A[2],B[2]);
+    or one4(outor[3],A[3],B[3]);
+    or one5(outor[4],A[4],B[4]);
+    or one6(outor[5],A[5],B[5]);
+    or one7(outor[6],A[6],B[6]);
+    or one8(outor[7],A[7],B[7]);
+    or one9(outor[8],A[8],B[8]);
+    or one11(outor[9],A[9],B[9]);
+    or one12(outor[10],A[10],B[10]);
+    or one13(outor[11],A[11],B[11]);
+    or one14(outor[12],A[12],B[12]);
+    or one15(outor[13],A[13],B[13]);
+    or one16(outor[14],A[14],B[14]);
+    or one17(outor[15],A[15],B[15]);
+    or one18(outor[16],A[16],B[16]);
+    or one19(outor[17],A[17],B[17]);
+    or one22(outor[18],A[18],B[18]);
+    or one33(outor[19],A[19],B[19]);
+    or one44(outor[20],A[20],B[20]);
+    or one55(outor[21],A[21],B[21]);
+    or one66(outor[22],A[22],B[22]);
+    or one77(outor[23],A[23],B[23]);
+    or one88(outor[24],A[24],B[24]);
+    or one99(outor[25],A[25],B[25]);
+    or one56(outor[26],A[26],B[26]);
+    or one43(outor[27],A[27],B[27]);
+    or one23(outor[28],A[28],B[28]);
+    or one53(outor[29],A[29],B[29]);
+    or one87(outor[30],A[30],B[30]);
+    or one98(outor[31],A[31],B[31]);
+endmodule
