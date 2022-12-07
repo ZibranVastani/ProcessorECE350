@@ -1,8 +1,9 @@
 module procControl(in_instr, ctrl_writeEnable,ctrl_writeReg,ctrl_readRegA,ctrl_readRegB,sw_instr,lw_instr,choose_im);
     input[31:0] in_instr;
     output sw_instr, lw_instr, ctrl_writeEnable, choose_im; 
-    output [4:0] ctrl_writeReg, ctrl_writeReg_jal, ctrl_readRegA, ctrl_readRegB, ctrl_readRegB_1;
+    output [4:0] ctrl_writeReg, ctrl_readRegA, ctrl_readRegB;
 
+    wire[4:0] ctrl_writeReg_jal, ctrl_readRegB_1;
     wire addi;
     wire read_rd;
 

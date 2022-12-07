@@ -24,9 +24,11 @@
  *
  **/
 
-module Wrapper (clock, reset);
+module Wrapper (clock, reset,testOut);
 	input clock, reset;
-
+    
+    output testOut;
+    wire[31:0] wireToTest;
 	wire rwe, mwe;
 	wire[4:0] rd, rs1, rs2;
 	wire[31:0] instAddr, instData, 
@@ -35,7 +37,7 @@ module Wrapper (clock, reset);
 
 
 	// ADD YOUR MEMORY FILE HERE
-	localparam INSTR_FILE = "";
+	localparam INSTR_FILE = "procTest";
 	
 	// Main Processing Unit
 	processor CPU(.clock(clock), .reset(reset), 
@@ -63,8 +65,8 @@ module Wrapper (clock, reset);
 		.ctrl_writeEnable(rwe), .ctrl_reset(reset), 
 		.ctrl_writeReg(rd),
 		.ctrl_readRegA(rs1), .ctrl_readRegB(rs2), 
-		.data_writeReg(rData), .data_readRegA(regA), .data_readRegB(regB));
-						
+		.data_writeReg(rData), .data_readRegA(regA), .data_readRegB(regB), .threeOut(wireToTest));
+	assign testOut = wireToTest[0];
 	// Processor Memory (RAM)
 	RAM ProcMem(.clk(clock), 
 		.wEn(mwe), 

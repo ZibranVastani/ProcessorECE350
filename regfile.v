@@ -2,38 +2,38 @@ module regfile (
 	clock,
 	ctrl_writeEnable, ctrl_reset, ctrl_writeReg,
 	ctrl_readRegA, ctrl_readRegB, data_writeReg,
-	data_readRegA, data_readRegB
+	data_readRegA, data_readRegB, threeOut
 );
 
 	input clock, ctrl_writeEnable, ctrl_reset;
 	input [4:0] ctrl_writeReg, ctrl_readRegA, ctrl_readRegB;
 	input [31:0] data_writeReg;
+	output [31:0] data_readRegA, data_readRegB, threeOut;
 
-	output [31:0] data_readRegA, data_readRegB;
+	reg[31:0] registers[31:0];
 
-	wire[31:0] wDecodedA, wDecodedB, wDecodedWE,wGateWE;
-	wire [31:0] [31:0] wRegOutput;
+	integer count;
+	initial begin
+		for (count=0; count<32; count=count+1)
+			registers[count] <= 0;
+	end
 
-	decoder_32 decodeA(wDecodedA,ctrl_readRegA,1'b1);
-	decoder_32 decodeB(wDecodedB,ctrl_readRegB,1'b1);
-	decoder_32 decodeWE(wDecodedWE, ctrl_writeReg,1'b1);
-
-
-	// add your code here
-	genvar i;
-	generate
-		for(i = 0; i<32; i=i+1) begin: loop1
-			and GateWE(wGateWE[i],ctrl_writeEnable,wDecodedWE[i]);
-			assign wGateWE[0] = 1'b0;
-			singleRegister reg1(wRegOutput[i],data_writeReg,clock,ctrl_reset,wGateWE[i]);
-		end
-	endgenerate
-
-	genvar j;
-	generate
-		for(j = 0; j<32; j=j+1) begin: loop2
-			triBuf a_buffer(data_readRegA,wRegOutput[j],wDecodedA[j]);
-			triBuf b_buffer(data_readRegB,wRegOutput[j],wDecodedB[j]);
-		end
-	endgenerate
+	integer i;
+	always @(posedge clock or posedge ctrl_reset)
+	begin
+		if(ctrl_reset)
+			begin
+				for(i = 0; i < 32; i = i + 1)
+					begin
+						registers[i] <= 32'd0;
+					end
+			end
+		else
+			if(ctrl_writeEnable && ctrl_writeReg != 5'd0)
+				registers[ctrl_writeReg] <= data_writeReg;
+	end
+	
+	assign data_readRegA = registers[ctrl_readRegA];
+	assign data_readRegB = registers[ctrl_readRegB];
+	assign threeOut = registers[3];
 endmodule

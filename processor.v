@@ -57,7 +57,7 @@ module processor(
 
 	// Regfile
 	output ctrl_writeEnable;
-	output [4:0] ctrl_writeReg, ctrl_readRegA, ctrl_readRegB,opcode,shamt,ALUop,zeros;
+	output [4:0] ctrl_writeReg, ctrl_readRegA, ctrl_readRegB;
 	output [31:0] data_writeReg;
 	input [31:0] data_readRegA, data_readRegB;
 
